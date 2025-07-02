@@ -1,0 +1,24 @@
+name = "NNacceleration4NLS"
+uuid = "124f65cb-f859-411c-8470-400b7ff9a61c"
+version = "0.1.0"
+
+[deps]
+ArrayInitializers = "0cb05910-bdd0-407c-a038-17c783435242"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+DFTK = "acf6eb54-70d9-11e9-0013-234b7a5f5337"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+NPZ = "15e1cf62-19b3-5cfa-8e77-841668bca605"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+ProgressBars = "49802e3a-d2f1-5c88-81d8-b72133a6f568"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+
+[compat]
+CSV = "0.10.15"
+CairoMakie = "0.13.1"
+DFTK = "0.7.8"
+DataFrames = "1.7.0"
+NPZ = "0.4.3"
+Plots = "1.40.9"
+ProgressBars = "1.5.1"
+PyCall = "1.96.4"

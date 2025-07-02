@@ -1,0 +1,7 @@
+matplotlib
+nibabel
+pandas
+torch
+scikit-image
+torchinfo
+tqdm
