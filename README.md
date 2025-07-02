@@ -15,13 +15,30 @@ The goal of this project is to enhance the performance of nonlinear solvers usin
 2. **Training a neural network** on the generated dataset using PyTorch.
 3. **Evaluating the trained model** by comparing its performance with a classical algorithm.
 
-## Before Use
+
+## Dependencies
+
+### External Software and Data
 
 After cloning this repository, the following steps need to be done to run the code.
 - clone the repository of the energy-adaptive conjugate gradient method for DFTK [RCG_DFTK](https://github.com/jonas-pueschel/RCG_DFTK) and manually set the path to `rcg.jl` in `julia/dftk_setup.jl`.
 - (optional) get the training and validation data of the paper from [Zenodo](). It can be found in `data.zip` and needs to be unpacked to `./data/`.
 - (optional) get the trained model from [Zenodo](). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
 - (optional) get the performance benchmark data of the paper from [Zenodo](). It can be found in `comp_paper.zip` and needs to be unpacked to `./comparisons/comp-paper/`.
+
+### Python
+Python dependencies are listed in `requirements.txt` and can be installed with:
+
+```shell
+pip install -r python/requirements.txt
+```
+
+### Julia
+Julia dependencies are specified in `Project.toml`. To install them, use:
+
+```shell
+julia -e 'using Pkg; Pkg.instantiate()'
+```
 
 ## Training Data Generation
 The training data is generated using the Julia script `data_generation.jl`. Execute the script from the project root with:
@@ -108,18 +125,3 @@ The script `test_gp.jl` allows to use the enhanced EARCG in a comprehensible env
 julia ./julia/test_gp.jl
 ```
 and optionally can use data from a comparison example, when the path is provided in the script. 
-
-## Dependencies
-### Python
-Python dependencies are listed in `requirements.txt` and can be installed with:
-
-```shell
-pip install -r requirements.txt
-```
-
-### Julia
-Julia dependencies are specified in `Project.toml`. To install them, use:
-
-```shell
-julia -e 'using Pkg; Pkg.instantiate()'
-```
