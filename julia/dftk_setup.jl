@@ -7,7 +7,7 @@ using BSON
 using DataFrames
 using Plots
 
-include("/PATH/TO/RCG_DFTK/src/rcg.jl")
+include("/homes/wiss/pueschel/repos/RCG_DFTK/src/rcg.jl")
 include("./util.jl")
 using .Util
 

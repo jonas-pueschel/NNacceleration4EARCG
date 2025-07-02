@@ -1,11 +1,6 @@
 using Pkg
 Pkg.activate("./")
 
-using DFTK
-using LinearAlgebra
-using Krylov
-using Plots
-
 include("./dftk_setup.jl")
 include("./util.jl")
 using .Util

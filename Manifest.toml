@@ -2,7 +2,7 @@
 
 julia_version = "1.10.2"
 manifest_format = "2.0"
-project_hash = "13d80954ea911f05a5e87898a858133d0afe324c"
+project_hash = "75a8ce1a0d36121292f71f337ab1c8677fe644e6"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "fb97701c117c8162e84dfcf80215caa904aef44f"
@@ -1091,6 +1091,12 @@ git-tree-sha1 = "7d703202e65efa1369de1279c162b915e245eed1"
 uuid = "5ab0869b-81aa-558d-bb23-cbf5423bbe9b"
 version = "0.6.9"
 
+[[deps.Krylov]]
+deps = ["LinearAlgebra", "Printf", "SparseArrays"]
+git-tree-sha1 = "b94257a1a8737099ca40bc7271a8b374033473ed"
+uuid = "ba0b0d4f-ebba-5204-a429-3ac8c609bfb7"
+version = "0.10.1"
+
 [[deps.KrylovKit]]
 deps = ["LinearAlgebra", "PackageExtensionCompat", "Printf", "Random", "VectorInterface"]
 git-tree-sha1 = "38477816f8db29956ea591feb3086d9edabf6f38"
@@ -2007,9 +2013,9 @@ weakdeps = ["OffsetArrays", "StaticArrays"]
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
-git-tree-sha1 = "e3be13f448a43610f978d29b7adf78c76022467a"
+git-tree-sha1 = "0feb6b9031bd5c51f9072393eb5ab3efd31bf9e4"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.9.12"
+version = "1.9.13"
 weakdeps = ["ChainRulesCore", "Statistics"]
 
     [deps.StaticArrays.extensions]
