@@ -1,6 +1,6 @@
 # NNacceleration4EARCG
 
-This repository contains code that leverages the Density Functional Toolkit (DFTK), the energy-adaptive conjugate gradient method and PyTorch to generate training data, train a neural network, and analyze its performance.
+This repository contains code that leverages the Density Functional Toolkit (DFTK), the energy-adaptive conjugate gradient method and PyTorch to generate training data, train a neural network, and analyze its performance. The code was written in equal parts by Jonas Püschel (@jonas-pueschel) and Kilian Rueß (@kilianar).
 
 ## Table of Contents
 - [Overview](#overview)
@@ -116,7 +116,7 @@ This script:
 - Generates histograms of iteration differences, percentual iteration differences, runtime differenence and density approximation improvement between the classical, the neural-random and the neural-augmented algorithms.
 - Computes and mean and median differences.
 - Identifies cases where the neural-augmented approach over- and underperformed.
-- generates all the `tikz` figure plots also found in the paper
+- Generates all the `tikz` figure plots also found in the paper
 
 ## Play around with enhanced EARCG
 
