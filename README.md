@@ -1,6 +1,6 @@
 # NNacceleration4EARCG
 
-This repository contains code that leverages the Density Functional Toolkit (DFTK), the energy-adaptive conjugate gradient method and PyTorch to generate training data, train a neural network, and analyze its performance. The code was written in equal parts by Jonas Püschel (@jonas-pueschel) and Kilian Rueß (@kilianar).
+This repository contains code that leverages the Density Functional Toolkit (DFTK), the energy-adaptive conjugate gradient method and PyTorch to generate training data, train a neural network, and analyze its performance. The code was written in equal parts by Jonas Püschel [@jonas-pueschel](https://github.com/jonas-pueschel) and Kilian Rueß [@kilianar](https://github.com/kilianar).
 
 ## Table of Contents
 - [Overview](#overview)
