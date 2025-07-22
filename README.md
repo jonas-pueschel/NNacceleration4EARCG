@@ -4,10 +4,11 @@ This repository contains code that leverages the Density Functional Toolkit (DFT
 
 ## Table of Contents
 - [Overview](#overview)
+- [Dependencies](#dependencies)
 - [Training Data Generation](#training-data-generation)
 - [Training the Neural Network](#training-the-neural-network)
 - [Evaluating the Trained Model](#evaluating-the-trained-model)
-- [Dependencies](#dependencies)
+
 
 ## Overview
 The goal of this project is to enhance the performance of nonlinear solvers using a neural network. The workflow consists of three main steps:
