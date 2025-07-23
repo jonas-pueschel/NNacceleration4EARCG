@@ -23,9 +23,9 @@ The goal of this project is to enhance the performance of nonlinear solvers usin
 
 After cloning this repository, the following steps need to be done to run the code.
 - clone the repository of the energy-adaptive conjugate gradient method for DFTK [RCG_DFTK](https://github.com/jonas-pueschel/RCG_DFTK) and manually set the path to `rcg.jl` in `julia/dftk_setup.jl`.
-- (optional) get the training and validation data of the paper from [Zenodo](). It can be found in `data.zip` and needs to be unpacked to `./data/`.
-- (optional) get the trained model from [Zenodo](). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
-- (optional) get the performance benchmark data of the paper from [Zenodo](). It can be found in `comp_paper.zip` and needs to be unpacked to `./comparisons/comp-paper/`.
+- (optional) get the training and validation data of the paper from [Zenodo](https://zenodo.org/records/15791260). It can be found in `data.zip` and needs to be unpacked to `./data/`.
+- (optional) get the trained model from [Zenodo](https://zenodo.org/records/15791260). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
+- (optional) get the performance benchmark data of the paper from [Zenodo](https://zenodo.org/records/15791260). It can be found in `comp_paper.zip` and needs to be unpacked to `./comparisons/comp-paper/`.
 
 ### Python
 Python dependencies are listed in `requirements.txt` and can be installed with:
