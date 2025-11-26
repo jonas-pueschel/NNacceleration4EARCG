@@ -27,7 +27,7 @@ After cloning this repository, the following steps need to be done to run the co
 - (optional) get the training and validation data of the paper from [Zenodo](https://zenodo.org/records/17713782). It can be found in `data.zip` and needs to be unpacked to `./data/`.
 - (optional) get the trained model from [Zenodo](https://zenodo.org/records/17713782). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
 - (optional) get the performance benchmark data of the paper from [Zenodo](https://zenodo.org/records/17713782). It can be found in `comparisons.zip` in folder `comp-paper` and needs to be unpacked to `./comparisons/comp-paper/`.
-- (optional) get the benchmarking data for determination of the error threshold from  [Zenodo](https://zenodo.org/records/17713782). It can be found in `comparisons.zip` in folders `comp-nntol-$i` for `i= 0, ..., 8` and needs to be unpacked to `./comparisons/comp-nntol-$i/`.
+- (optional) get the benchmarking data for determination of the error threshold from  [Zenodo](https://zenodo.org/records/17713782). It can be found in `comparisons.zip` in folders `comp-nntol-$i` for `i= 0:8` and needs to be unpacked to `./comparisons/comp-nntol-$i/`.
 
 ### Python
 Python dependencies are listed in `requirements.txt` and can be installed with:
