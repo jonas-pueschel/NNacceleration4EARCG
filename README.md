@@ -111,7 +111,7 @@ Each test case is stored in `example-${n}/`, containing:
 To analyze the results from benchmarking, run:
 
 ```shell
-julia ./julia/plot_compare_algorithms.jl
+julia --project=. ./julia/plot_compare_algorithms.jl
 ```
 
 This script:
@@ -138,7 +138,7 @@ data provided from there. We also note that the content of `for` loop can in pri
 To analyze the results from the threshold comparison, run:
 
 ```shell
-julia ./julia/plot_compare_eps.jl
+julia --project=. ./julia/plot_compare_eps.jl
 ```
 
 This script plots mean and median of steps and density improvement and the percentage of improved cases with respect ot the values of `nn_tol`.
@@ -147,6 +147,6 @@ This script plots mean and median of steps and density improvement and the perce
 
 The script `test_gp.jl` allows to use the enhanced EARCG in a comprehensible enviroment. It can be run using
 ```shell
-julia ./julia/test_gp.jl
+julia --project=. ./julia/test_gp.jl
 ```
 and optionally can use data from a comparison example, when the path is provided in the script. 
