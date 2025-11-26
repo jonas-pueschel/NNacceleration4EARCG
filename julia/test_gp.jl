@@ -40,41 +40,10 @@ earcg_init, earcg_enhanced, ψ_neural_enh, ρ_neural_enh, nn_applications = DFTK
     callback
     );
 
-title = "iteration $(earcg_init.n_iter) post nn"
-save = "test/hmp-$(earcg_init.n_iter)-nn.png"
-Util.plot_density(ρ_neural_enh; title, save)
-
-partial_solution = Util.ifft_to_2d_matrix(basis, earcg_init.ψ)
-partial_grad = Util.ifft_to_2d_matrix(basis, earcg_init.grad)
-title = "iteration $(earcg_init.n_iter) iterate re"
-save = "test/hmp-$(earcg_init.n_iter)-iterate-re.png"
-Util.plot_density(partial_solution[:,:,1]; title, save)
-title = "iteration $(earcg_init.n_iter) iterate im"
-save = "test/hmp-$(earcg_init.n_iter)-iterate-im.png"
-Util.plot_density(partial_solution[:,:,2]; title, save)
-title = "iteration $(earcg_init.n_iter) gradient re"
-save = "test/hmp-$(earcg_init.n_iter)-gradient-re.png"
-Util.plot_density(partial_grad[:,:,1]; title, save)
-title = "iteration $(earcg_init.n_iter) gradient im"
-save = "test/hmp-$(earcg_init.n_iter)-gradient-im.png"
-Util.plot_density(partial_grad[:,:,2]; title, save)
-
-
-partial_solution = Util.ifft_to_2d_matrix(basis, earcg_enhanced.ψ)
-title = "iteration $(earcg_enhanced.n_iter + earcg_init.n_iter) iterate re"
-save = "test/hmp-$(earcg_enhanced.n_iter + earcg_init.n_iter)-iterate-re.png"
-Util.plot_density(partial_solution[:,:,1]; title, save)
-title = "iteration $(earcg_enhanced.n_iter + earcg_init.n_iter) iterate im"
-save = "test/hmp-$(earcg_enhanced.n_iter + earcg_init.n_iter)-iterate-im.png"
-Util.plot_density(partial_solution[:,:,2]; title, save)
-
-title = "iteration $(earcg_init.n_iter) gradient"
-save = "test/hmp-$(earcg_init.n_iter)-gradient.png"
-ρ_grad = Util.compute_ρ(basis, earcg_init.grad)
-Util.plot_density(ρ_grad; title, save)
-
-
-
+# Plot density of NN output
+# title = "iteration $(earcg_init.n_iter) post nn"
+# save = "test/hmp-$(earcg_init.n_iter)-nn.png"
+# Util.plot_density(ρ_neural_enh; title, save)
 
 callback = Util.PlotDensityCallback(;default_callback = DFTKSetup.get_default_callback(), unet, save_img_path = "./test2")
 # classical
