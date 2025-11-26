@@ -31,13 +31,13 @@ else
     ρ1 = DFTK.guess_density(basis)
 end
 
-callback = Util.PlotDensityCallback(;default_callback = DFTKSetup.get_default_callback(), save_img_path = "./test")
+# callback that plots some densities during iteration
+# callback = Util.PlotDensityCallback(;default_callback = DFTKSetup.get_default_callback(), save_img_path = "./test")
 
 earcg_init, earcg_enhanced, ψ_neural_enh, ρ_neural_enh, nn_applications = DFTKSetup.enhanced_earcg(basis, tol, maxiter, unet; 
     ψ0 = ψ1, ρ0 = ρ1, 
     interval = 5,
-    nn_tol = 5e-3,
-    callback
+    nn_tol = 5e-3
     );
 
 # Plot density of NN output
@@ -45,11 +45,9 @@ earcg_init, earcg_enhanced, ψ_neural_enh, ρ_neural_enh, nn_applications = DFTK
 # save = "test/hmp-$(earcg_init.n_iter)-nn.png"
 # Util.plot_density(ρ_neural_enh; title, save)
 
-callback = Util.PlotDensityCallback(;default_callback = DFTKSetup.get_default_callback(), unet, save_img_path = "./test2")
 # classical
 earcg_classical = DFTKSetup.earcg(basis, tol, maxiter; 
-    ψ0 = ψ1, ρ0 = ρ1, 
-    callback
+    ψ0 = ψ1, ρ0 = ρ1
     );
 
 # runtime_classical = Int(earcg_classical.runtime_ns)
