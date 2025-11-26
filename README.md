@@ -24,9 +24,10 @@ The goal of this project is to enhance the performance of nonlinear solvers usin
 
 After cloning this repository, the following steps need to be done to run the code.
 - clone the repository of the energy-adaptive conjugate gradient method for DFTK [RCG_DFTK](https://github.com/jonas-pueschel/RCG_DFTK) and manually set the path to `rcg.jl` in `julia/dftk_setup.jl`.
-- (optional) get the training and validation data of the paper from [Zenodo](https://zenodo.org/records/15791260). It can be found in `data.zip` and needs to be unpacked to `./data/`.
-- (optional) get the trained model from [Zenodo](https://zenodo.org/records/15791260). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
-- (optional) get the performance benchmark data of the paper from [Zenodo](https://zenodo.org/records/15791260). It can be found in `comp_paper.zip` and needs to be unpacked to `./comparisons/comp-paper/`.
+- (optional) get the training and validation data of the paper from [Zenodo](https://zenodo.org/records/17713782). It can be found in `data.zip` and needs to be unpacked to `./data/`.
+- (optional) get the trained model from [Zenodo](https://zenodo.org/records/17713782). It can be foound in `model_paper.pth` and needs to be put at `./models/model_paper.pth`
+- (optional) get the performance benchmark data of the paper from [Zenodo](https://zenodo.org/records/17713782). It can be found in `comparisons.zip` in folder `comp-paper` and needs to be unpacked to `./comparisons/comp-paper/`.
+- (optional) get the benchmarking data for determination of the error threshold from  [Zenodo](https://zenodo.org/records/17713782). It can be found in `comparisons.zip` in folders `comp-nntol-i` for `i= 0, ..., 8` and needs to be unpacked to `./comparisons/comp-nntol-i/`.
 
 ### Python
 Python dependencies are listed in `requirements.txt` and can be installed with:
@@ -46,7 +47,7 @@ julia -e 'using Pkg; Pkg.instantiate()'
 The training data is generated using the Julia script `data_generation.jl`. Execute the script from the project root with:
 
 ```shell
-julia julia/data_generation.jl
+julia --project=. julia/data_generation.jl
 ```
 
 This script produces a dataset containing:
@@ -94,7 +95,7 @@ If a GPU is available, the model will train on it automatically; otherwise, the 
 To compare the classical algorithm with the neural-augmented approach, run:
 
 ```shell
-julia ./julia/compare_algorithms.jl
+julia  --project=. ./julia/compare_algorithms.jl
 ```
 
 This script:
@@ -107,7 +108,7 @@ Each test case is stored in `example-${n}/`, containing:
 - **Performance statistics** (`statistics.csv`).
 
 ### Performance Analysis
-To analyze the results, run:
+To analyze the results from benchmarking, run:
 
 ```shell
 julia ./julia/plot_compare_algorithms.jl
@@ -119,6 +120,28 @@ This script:
 - Computes and mean and median differences.
 - Identifies cases where the neural-augmented approach over- and underperformed.
 - Generates all the `tikz` figure plots also found in the paper
+
+## Derivate Enhancement Threshold
+
+To determine the enhancement threshold comparion data, run:
+
+```shell
+julia  --project=. ./julia/compare_eps.jl
+```
+
+This script does the same as `compare_algorithms.jl`, however it runs for different values of `nn_tol`, namely
+`[10^(-1 - i * 0.25) for i = 0:8]` and saves the respective result in `comparisons/comp-nntol-$i`. 
+One needs to set the varibale `load_dir` to an already finished result of `compare_algorithms.jl` such that all thresholds work with initial
+data provided from there. We also note that the content of `for` loop can in principle be run in parallel on different machines.
+
+### Analysis of Threshold Data
+To analyze the results from the threshold comparison, run:
+
+```shell
+julia ./julia/plot_compare_eps.jl
+```
+
+This script plots mean and median of steps and density improvement and the percentage of improved cases with respect ot the values of `nn_tol`.
 
 ## Play around with enhanced EARCG
 
