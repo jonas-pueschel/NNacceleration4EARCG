@@ -8,6 +8,7 @@ This repository contains code that leverages the Density Functional Toolkit (DFT
 - [Training Data Generation](#training-data-generation)
 - [Training the Neural Network](#training-the-neural-network)
 - [Evaluating the Trained Model](#evaluating-the-trained-model)
+- [Derivate Enhancement Threshold](#derivate-enhancement-threshold)
 - [Play around with enhanced EARCG](#play-around-with-enhanced-earcg)
 
 
