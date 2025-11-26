@@ -1,6 +1,3 @@
-using Pkg
-Pkg.activate("./")
-
 include("./dftk_setup.jl")
 include("./util.jl")
 

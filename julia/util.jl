@@ -187,47 +187,64 @@ end
 
 mutable struct PlotDensityCallback
     default_callback
-    save_img
+    save_img_path
     unet
-    function PlotDensityCallback(;default_callback = (info -> nothing), save_img = "", unet = nothing)
-        new(default_callback, save_img, unet)
+    iter_offset
+    function PlotDensityCallback(;default_callback = (info -> nothing), save_img_path = "", unet = nothing)
+        new(default_callback, save_img_path, unet, 0)
     end
 end
 
 function (callback::PlotDensityCallback)(info)
-    mod = info.norm_res > 1e-1 ? 1 : (info.norm_res > 1e-2 ? 5 : (info.norm_res > 0.5e-2 ? 10 : (info.norm_res > 1e-4 ? 100 : 500)))
+    mod = info.norm_res > 1e-1 ? 1 : (info.norm_res > 1e-2 ? 2 : (info.norm_res > 0.5e-2 ? 5 : (info.norm_res > 1e-4 ? 10 : 100)))
 
-    if  (info.n_iter % mod == 0 && hasproperty(info, :ρout)) || info.stage == :finalize
+    if  ((info.n_iter + callback.iter_offset) % mod == 0 && hasproperty(info, :ρout)) || info.stage == :finalize
         ρ = hasproperty(info, :ρout) ? info.ρout : info.ρ   
-        save = callback.save_img != "" ? joinpath(save_img, "hmp-$(info.n_iter).png") : ""
-        title = "iteration $(info.n_iter)"
+        save = callback.save_img_path != "" ? joinpath(callback.save_img_path, "hmp-$(info.n_iter + callback.iter_offset).png") : ""
+        title = "iteration  $(info.n_iter + callback.iter_offset)"
         
         if !isnothing(callback.unet)
             ψ_neural, norm_nn = callback.unet(info.basis, info.ψ, info.grad)
             ρ_neural = compute_ρ(info.basis, ψ_neural)
 
             err = abs(norm_nn-1)
-            save_iter = callback.save_img != "" ? joinpath(save_img, "hmp-$(info.n_iter)-nn.png") : ""
-            title_iter = "NN of iter $(info.n_iter), err = $err"
+            save_iter = callback.save_img_path != "" ? joinpath(callback.save_img_path, "hmp-$(info.n_iter+ callback.iter_offset)-nn.png") : ""
+            title_iter = "NN of iter $(info.n_iter + callback.iter_offset), err = $err"
             plot_density([ρ, ρ_neural] ;titles = [title, title_iter], saves = [save, save_iter])
         else
             plot_density(ρ ;title, save)
         end
     end
 
+    if info.stage == :finalize
+        callback.iter_offset += info.n_iter
+    end
+
     callback.default_callback(info)    
 end
 
 
-function plot_density(ρs::Vector{Array{Float64, 4}}; 
+
+
+function plot_density(ρs::Union{Vector{Array{Float64, 4}}, Vector{Matrix{Float64}}}; 
         titles = Array(ArrayInitializers.init(""), length(ρs)), 
         saves = Array(ArrayInitializers.init(""), length(ρs)))
     plts = []
 
     for (ρ, save, title) = zip(ρs, saves, titles)
+        if length(size(ρ)) == 4
         hmp = heatmap(ρ[:, :, 1, 1], title = title, 
             xaxis=false, yaxis=false, aspect_ratio = :equal, colorbar=:none,
             showaxis = false, ticks= false) #, c=:blues)
+        elseif length(size(ρ)) == 2
+            maxval = max([abs(x) for x = ρ]...)
+            hmp = heatmap(ρ[:, :], title = title, 
+                xaxis=false, yaxis=false, aspect_ratio = :equal, colorbar=:none,
+                showaxis = false, ticks= false, c=:RdBu, clim = (-maxval, maxval))
+        else
+            #TODO what happens here?
+            continue
+        end
         push!(plts, hmp)
         if save != ""
             png(hmp, save)
@@ -238,7 +255,7 @@ function plot_density(ρs::Vector{Array{Float64, 4}};
     display(plt)
 end
 
-function plot_density(ρ::Array; title::String = "", save::String = "")
+function plot_density(ρ::Union{Array, Matrix}; title::String = "", save::String = "")
     plot_density([ρ]; titles = [title], saves = [save])
 end
 

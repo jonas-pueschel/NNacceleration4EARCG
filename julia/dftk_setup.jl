@@ -1,13 +1,14 @@
 module DFTKSetup
 
 using DFTK
+using RCG_DFTK
+using Krylov
 using StaticArrays
 using CSV
 using BSON
 using DataFrames
 using Plots
 
-include("/PATH/TO/RCG_DFTK/src/rcg.jl")
 include("./util.jl")
 using .Util
 
@@ -98,9 +99,9 @@ function load_gp2D(path; a = 20)
 
     model, basis = gp2D_setup(; κ, ω, v, a)
 
-    BSON.@load ψ_path ψ1
+    BSON.@load ψ_path ψ1 ρ_classical
 
-    (model, basis, ψ1)
+    (model, basis, ψ1, ρ_classical)
 end
 
 function get_default_callback()
@@ -141,7 +142,7 @@ end
 
 #EARCG
 function enhanced_earcg(basis, tol, max_iterations, unet; ψ0 = nothing, ρ0 = nothing, callback = get_default_callback(), 
-                tol₁_max = 1e-1, tol₁_min = 1e-4, interval = 5, inner_it = 25)
+                tol₁_max = 1e-1, tol₁_min = 1e-4, interval = 5, nn_tol = 5e-3, inner_it = 25)
     #EARCG setup
     shift = ConstantShift(0.0)
  
@@ -172,8 +173,7 @@ function enhanced_earcg(basis, tol, max_iterations, unet; ψ0 = nothing, ρ0 = n
 
         err = abs(norm_nn-1)
 
-        #if (err > min(0.1 * info.norm_grad, 1e-3))
-        if (err > 5e-3)
+        if (err > nn_tol)
             return callback(info)
         end
 

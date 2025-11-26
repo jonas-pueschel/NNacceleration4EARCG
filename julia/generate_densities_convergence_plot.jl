@@ -1,6 +1,3 @@
-using Pkg
-Pkg.activate("./")
-
 using DFTK
 using LinearAlgebra
 using BSON

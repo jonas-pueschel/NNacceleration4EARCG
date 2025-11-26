@@ -1,6 +1,3 @@
-using Pkg
-Pkg.activate("./")
-
 include("./dftk_setup.jl")
 include("./util.jl")
 include("./plot_nn_examples.jl")
@@ -9,7 +6,6 @@ using DFTK
 using .DFTKSetup
 using .Util
 using .PlotExample
-using DFTK
 using PyCall
 using CSV
 using DataFrames
@@ -25,6 +21,11 @@ using LinearAlgebra
 n_comparisons = 500
 path_comparison = "./comparisons/comp-paper"
 path_figures = "./figs/"
+
+mkpath(path_figures)
+
+generate_example_plots = false
+use_adjusted_mean = true
 
 df = nothing
 
@@ -76,6 +77,8 @@ function vals_to_bins(vals, bins)
 end
 
 function generate_hist(bins, vals_same, vals_diff, is_perc, mean_val, adj_mean_val, median_val, fpath)
+    mean_val = use_adjusted_mean ? adj_mean_val : mean_val
+    
     xtick = [ bins[2], bins[2]/2, 0, bins[end-1]/2, bins[end-1] ]
     xtick_str = prod("$(Int(xt)), " for xt = xtick)[1:end-2]
     if (!is_perc)
@@ -153,8 +156,8 @@ medians = zeros(8)
 function get_adjusted_mean(vals)
     sorted_vals = sort(vals)
     n_vals = length(vals) 
-    one_perc = Int(round(n_vals/100))
-    adj_vals = sorted_vals[one_perc+1 : n_vals - one_perc]
+    half_perc = Int(round(n_vals/200))
+    adj_vals = sorted_vals[half_perc+1 : n_vals - half_perc]
     return mean(adj_vals)
 end
 
@@ -201,7 +204,7 @@ function generate_hist_iterations(prefix, fname, enhanced, fieldname, is_perc; r
     binvals_diff_e = vals_to_bins(vals_diff_e, bins)
     generate_hist(bins2, binvals_same_e, binvals_diff_e, is_perc, mean_val, adj_mean_val, median_val, fname_full)
 
-    if (enhanced && fname == "hist_rhos")
+    if (enhanced && fname == "hist_rhos" && generate_example_plots)
         #plot three best and worst
 
         resls_sorted = sort(resls, by = x -> x.impr_ρ)
@@ -216,7 +219,7 @@ function generate_hist_iterations(prefix, fname, enhanced, fieldname, is_perc; r
         end
     end
 
-    if (enhanced && fname == "hist_perc_its")
+    if (enhanced && fname == "hist_perc_its" && generate_example_plots)
         #plot three best and worst
 
         resls_sorted = sort(resls, by = x -> x.it_diff_perc)
